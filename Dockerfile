@@ -39,20 +39,6 @@ RUN set -eux; \
 	\
 	dpkgArch="$(dpkg --print-architecture)"; \
 	case "$dpkgArch" in \
-		amd64) upstreamArch='x64' ;; \
-		arm64) upstreamArch='aarch64' ;; \
-		*) echo >&2 "error: unsupported architecture: $dpkgArch" ;; \
-	esac; \
-	\
-	wget -O openjdk.tgz.asc "${JAVA_BASE_URL}${upstreamArch}_linux_${JAVA_URL_VERSION}.tar.gz.sign"; \
-	wget -O openjdk.tgz "${JAVA_BASE_URL}${upstreamArch}_linux_${JAVA_URL_VERSION}.tar.gz" --progress=dot:giga; \
-	\
-	export GNUPGHOME="$(mktemp -d)"; \
-
-RUN set -eux; \
-	\
-	dpkgArch="$(dpkg --print-architecture)"; \
-	case "$dpkgArch" in \
 		amd64) dockerArch='x64' ;; \
 		x86_64) dockerArch='x86_64' ;; \
 		arm64) dockerArch='aarch64' ;; \
