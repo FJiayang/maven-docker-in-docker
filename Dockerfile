@@ -39,8 +39,7 @@ RUN set -eux; \
 	\
 	dpkgArch="$(dpkg --print-architecture)"; \
 	case "$dpkgArch" in \
-		amd64) dockerArch='x64' ;; \
-		x86_64) dockerArch='x86_64' ;; \
+		amd64) dockerArch='x86_64' ;; \
 		arm64) dockerArch='aarch64' ;; \
 		*) echo >&2 "error: unsupported architecture: $dpkgArch" ;; \
 	esac; \
