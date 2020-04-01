@@ -21,9 +21,6 @@ COPY settings-docker.xml /usr/share/maven/ref/
 RUN chmod +x /usr/local/bin/mvn-entrypoint.sh \
   && /usr/local/bin/mvn-entrypoint.sh
 
-RUN apk add --no-cache \
-		ca-certificates
-
 # set up nsswitch.conf for Go's "netgo" implementation (which Docker explicitly uses)
 # - https://github.com/docker/docker-ce/blob/v17.09.0-ce/components/engine/hack/make.sh#L149
 # - https://github.com/golang/go/blob/go1.9.1/src/net/conf.go#L194-L275
@@ -42,8 +39,6 @@ RUN set -eux; \
 		apt-transport-https \
 		gnupg2 \
 		curl \
-		\
-# utilities for keeping Debian and OpenJDK CA certificates in sync
 		software-properties-common \
 	; \
 
