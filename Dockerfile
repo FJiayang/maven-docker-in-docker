@@ -25,7 +25,7 @@ RUN chmod +x /usr/local/bin/mvn-entrypoint.sh \
 # - https://github.com/docker/docker-ce/blob/v17.09.0-ce/components/engine/hack/make.sh#L149
 # - https://github.com/golang/go/blob/go1.9.1/src/net/conf.go#L194-L275
 # - docker run --rm debian:stretch grep '^hosts:' /etc/nsswitch.conf
-RUN [ ! -e /etc/nsswitch.conf ] && echo 'hosts: files dns' > /etc/nsswitch.conf
+RUN echo /etc/nsswitch.conf && [ ! -e /etc/nsswitch.conf ] && echo 'hosts: files dns' > /etc/nsswitch.conf
 
 ENV DOCKER_CHANNEL stable
 ENV DOCKER_VERSION 18.09.3
