@@ -18,7 +18,8 @@ ENV MAVEN_CONFIG "$USER_HOME_DIR/.m2"
 COPY mvn-entrypoint.sh /usr/local/bin/mvn-entrypoint.sh
 COPY settings-docker.xml /usr/share/maven/ref/
 
-RUN ["/usr/local/bin/mvn-entrypoint.sh"]
+RUN chmod +x /usr/local/bin/mvn-entrypoint.sh \
+  && /usr/local/bin/mvn-entrypoint.sh
 
 RUN apk add --no-cache \
 		ca-certificates
