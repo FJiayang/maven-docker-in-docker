@@ -16,7 +16,7 @@ RUN set -eux; \
 
 # set up subuid/subgid so that "--userns-remap=default" works out-of-the-box
 RUN set -x
-RUN adduser -G dockremap dockremap
+RUN adduser dockremap dockremap
 RUN echo 'dockremap:165536:65536' >> /etc/subuid
 RUN echo 'dockremap:165536:65536' >> /etc/subgid
 
