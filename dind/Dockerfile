@@ -4,7 +4,7 @@ RUN apt-get update;
 RUN	apt-get install -y btrfs-progs
 RUN	apt-get install -y 		e2fsprogs
 RUN	apt-get install -y 		xfsprogs
-RUN	apt-get install -y 		xz
+RUN	apt-get install -y 		xz-utils
 RUN	apt-get install -y 		pigz
 RUN	apt-get install -y 		iptables
 RUN	rm -rf /var/lib/apt/lists/*
