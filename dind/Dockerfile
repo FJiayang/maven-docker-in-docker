@@ -3,7 +3,6 @@ FROM fjy8018/maven-docker-in-docker:maven-3.6.3-docker-1809.3-jdk8
 RUN apt-get update;
 RUN	apt-get install -y btrfs-progs
 RUN	apt-get install -y 		e2fsprogs
-RUN	apt-get install -y 		e2fsprogs-extra
 RUN	apt-get install -y 		xfsprogs
 RUN	apt-get install -y 		xz
 RUN	apt-get install -y 		pigz
