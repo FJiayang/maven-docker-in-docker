@@ -15,11 +15,10 @@ RUN set -eux; \
 # TODO aufs-tools
 
 # set up subuid/subgid so that "--userns-remap=default" works out-of-the-box
-RUN set -x
-RUN adduser dockremap
-RUN cat /etc/group
-RUN echo 'dockremap:165536:65536' >> /etc/subuid
-RUN echo 'dockremap:165536:65536' >> /etc/subgid
+RUN set -x \
+	&& adduser dockremap dockremap \
+	&& echo 'dockremap:165536:65536' >> /etc/subuid \
+	&& echo 'dockremap:165536:65536' >> /etc/subgid
 
 # https://github.com/docker/docker/tree/master/hack/dind
 ENV DIND_COMMIT 37498f009d8bf25fbb6199e8ccd34bed84f2874b
