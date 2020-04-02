@@ -1,4 +1,4 @@
-FROM fjy8018/maven-docker-in-docker:maven-3.6.3-docker-1809.3-jdk8
+FROM fjy8018/maven-docker-in-docker:maven-3.6.3-docker-1903-jdk8
 
 # https://github.com/docker/docker/blob/master/project/PACKAGERS.md#runtime-dependencies
 RUN set -eux; \
