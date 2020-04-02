@@ -62,5 +62,6 @@ RUN set -eux; \
 	docker --version
 
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+RUN cat /usr/local/bin/docker-entrypoint.sh
 ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
 CMD ["sh"]
