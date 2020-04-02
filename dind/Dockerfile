@@ -16,9 +16,8 @@ RUN set -eux; \
 
 # set up subuid/subgid so that "--userns-remap=default" works out-of-the-box
 RUN set -x
-RUN groupadd dockremap
 RUN adduser dockremap
-RUN gpasswd -a adduser dockremap
+RUN cat /etc/group
 RUN echo 'dockremap:165536:65536' >> /etc/subuid
 RUN echo 'dockremap:165536:65536' >> /etc/subgid
 
