@@ -2,7 +2,6 @@ FROM fjy8018/maven-docker-in-docker:maven-3.6.3-docker-1903-jdk8
 
 
 COPY dockerd-entrypoint.sh /usr/local/bin/
-RUN cat /usr/local/bin/dockerd-entrypoint.sh
 
 RUN set -eux; \
 	apt-get update; \
@@ -34,5 +33,5 @@ RUN set -eux; \
 VOLUME /var/lib/docker
 EXPOSE 2375
 
-ENTRYPOINT ["dockerd-entrypoint.sh"]
+ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
 CMD []
