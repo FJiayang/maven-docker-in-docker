@@ -1,17 +1,14 @@
 FROM fjy8018/maven-docker-in-docker:maven-3.6.3-docker-1809.3-jdk8
 
-RUN set -eux; \
-	apt-get update; \
-	apt-get install -y --no-install-recommends \
-		btrfs-progs \
-		e2fsprogs \
-		e2fsprogs-extra \
-		xfsprogs \
-		xz \
-		pigz \
-		iptables \
-	; \
-	rm -rf /var/lib/apt/lists/*
+RUN apt-get update;
+RUN	apt-get install -y btrfs-progs
+RUN	apt-get install -y 		e2fsprogs
+RUN	apt-get install -y 		e2fsprogs-extra
+RUN	apt-get install -y 		xfsprogs
+RUN	apt-get install -y 		xz
+RUN	apt-get install -y 		pigz
+RUN	apt-get install -y 		iptables
+RUN	rm -rf /var/lib/apt/lists/*
 
 
 # TODO aufs-tools
