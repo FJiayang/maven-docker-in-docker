@@ -38,6 +38,7 @@ RUN set -eux; \
 	chmod +x /usr/local/bin/dind
 
 COPY dockerd-entrypoint.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/dockerd-entrypoint.sh
 
 VOLUME /var/lib/docker
 EXPOSE 2375 2376
