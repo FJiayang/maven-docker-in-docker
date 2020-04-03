@@ -1,25 +1,32 @@
 FROM fjy8018/maven-docker-in-docker:maven-3.6.3-docker-1903-jdk8
 
-
-COPY dockerd-entrypoint.sh /usr/local/bin/
-
+# https://github.com/docker/docker/blob/master/project/PACKAGERS.md#runtime-dependencies
 RUN set -eux; \
-	apt-get update; \
-	apt-get install -y --no-install-recommends \
+	apk add --no-cache \
 		btrfs-progs \
 		e2fsprogs \
-		xfsprogs \
-		xz-utils \
-		pigz \
+		e2fsprogs-extra \
 		iptables \
+		openssl \
+		shadow-uidmap \
+		xfsprogs \
+		xz \
+# pigz: https://github.com/moby/moby/pull/35697 (faster gzip implementation)
+		pigz \
 	; \
-	rm -rf /var/lib/apt/lists/*
+# only install zfs if it's available for the current architecture
+# https://git.alpinelinux.org/cgit/aports/tree/main/zfs/APKBUILD?h=3.6-stable#n9 ("all !armhf !ppc64le" as of 2017-11-01)
+# "apk info XYZ" exits with a zero exit code but no output when the package exists but not for this arch
+	if zfs="$(apk info --no-cache --quiet zfs)" && [ -n "$zfs" ]; then \
+		apk add --no-cache zfs; \
+	fi
 
 # TODO aufs-tools
 
 # set up subuid/subgid so that "--userns-remap=default" works out-of-the-box
 RUN set -x \
-	&& adduser dockremap \
+	&& addgroup -S dockremap \
+	&& adduser -S -G dockremap dockremap \
 	&& echo 'dockremap:165536:65536' >> /etc/subuid \
 	&& echo 'dockremap:165536:65536' >> /etc/subgid
 
@@ -30,8 +37,10 @@ RUN set -eux; \
 	wget -O /usr/local/bin/dind "https://raw.githubusercontent.com/docker/docker/${DIND_COMMIT}/hack/dind"; \
 	chmod +x /usr/local/bin/dind
 
-VOLUME /var/lib/docker
-EXPOSE 2375
+COPY dockerd-entrypoint.sh /usr/local/bin/
 
-ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
+VOLUME /var/lib/docker
+EXPOSE 2375 2376
+
+ENTRYPOINT ["dockerd-entrypoint.sh"]
 CMD []
